@@ -1,10 +1,8 @@
+
+# Playwright
 node_modules/
-test-results/
-playwright-report/
-playwright/.auth/
-blob-report/
-playwright/.cache/
-.DS_Store
-dist/
-.auth
-.env
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
