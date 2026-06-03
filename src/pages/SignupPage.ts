@@ -27,7 +27,6 @@ export class SignupPage extends BasePage {
     constructor(page: Page) {
         super(page);
 
-        // POM best-practice: initialize locators in constructor (Playwright docs)
         this.accountInfoHeading = this.page
             .getByText('Enter Account Information')
             .describe('Account Info Heading');
