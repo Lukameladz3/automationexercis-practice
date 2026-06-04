@@ -13,6 +13,6 @@ export class AccountCreatedPage extends BasePage {
     }
 
     async clickContinue() {
-        await this.continueBtn.click();
+        return this.continueBtn.click();
     }
 }

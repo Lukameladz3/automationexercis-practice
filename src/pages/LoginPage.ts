@@ -26,12 +26,12 @@ export class LoginPage extends BasePage {
     async signup(name: string, email: string) {
         await this.signupNameInput.fill(name);
         await this.signupEmailInput.fill(email);
-        await this.signupBtn.click();
+        return this.signupBtn.click();
     }
 
     async login(email: string, pass: string) {
         await this.loginEmailInput.fill(email);
         await this.loginPasswordInput.fill(pass);
-        await this.loginBtn.click();
+        return this.loginBtn.click();
     }
 }

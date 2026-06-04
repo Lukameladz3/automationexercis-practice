@@ -79,10 +79,10 @@ export class SignupPage extends BasePage {
         await this.state.fill(user.state);
         await this.city.fill(user.city);
         await this.zipcode.fill(user.zipcode);
-        await this.mobile.fill(user.mobileNumber);
+        return this.mobile.fill(user.mobileNumber);
     }
 
     async clickCreateAccount() {
-        await this.createAccountBtn.click();
+        return this.createAccountBtn.click();
     }
 }

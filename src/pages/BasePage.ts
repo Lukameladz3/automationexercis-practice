@@ -16,7 +16,7 @@ export abstract class BasePage {
         return this.page.getByTestId(name).describe(description);
     }
 
-    async verifyPageOpened(customMessage?: string): Promise<void> {
+    async verifyPageOpened(customMessage?: string) {
         if (!this.uniqueLocator) {
             throw new Error(
                 'Cannot verify page opened: uniqueLocator not defined in page object constructor',
@@ -24,6 +24,6 @@ export abstract class BasePage {
         }
 
         const message = customMessage || `Page should be opened (unique locator should be visible)`;
-        await expect(this.uniqueLocator, message).toBeVisible();
+        return expect(this.uniqueLocator, message).toBeVisible();
     }
 }

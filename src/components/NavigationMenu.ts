@@ -27,11 +27,11 @@ export class NavigationMenu {
             .describe('Delete Account link');
     }
 
-    async clickSignupLogin(): Promise<void> {
+    async clickSignupLogin() {
         return this.signupLoginLink.click();
     }
 
-    async clickDeleteAccount(): Promise<void> {
+    async clickDeleteAccount() {
         return this.deleteAccountLink.click();
     }
 }

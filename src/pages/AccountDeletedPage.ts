@@ -16,14 +16,14 @@ export class AccountDeletedPage extends BasePage {
             .describe("Continue button");
     }
 
-    async verifyAccountDeleted(): Promise<void> {
-        await expect(
+    async verifyAccountDeleted() {
+        return expect(
             this.accountDeletedHeading,
             "Account deleted heading should be visible"
         ).toBeVisible();
     }
 
-    async clickContinue(): Promise<void> {
-        await this.continueButton.click();
+    async clickContinue() {
+        return this.continueButton.click();
     }
 }
