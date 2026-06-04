@@ -10,9 +10,7 @@ export class AccountDeletedPage extends BasePage {
             page,
             page.getByRole("heading", { name: /account deleted/i }).describe("Account deleted heading")
         );
-        this.accountDeletedHeading = this.page
-            .getByRole("heading", { name: /account deleted/i })
-            .describe("Account deleted heading");
+        this.accountDeletedHeading = this.uniqueLocator!;
         this.continueButton = this.page
             .getByRole("link", { name: /continue/i })
             .describe("Continue button");

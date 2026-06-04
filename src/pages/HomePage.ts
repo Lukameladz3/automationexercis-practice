@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { NavigationMenu } from "../components/NavigationMenu";
 import { Routes } from "../constants/Routes";
+import { BrowserUtils } from "../utils/BrowserUtils";
 import { BasePage } from "./BasePage";
 
 export class HomePage extends BasePage {
@@ -18,15 +19,7 @@ export class HomePage extends BasePage {
   }
 
   async goto(): Promise<void> {
-    await super.goto(Routes.WEB.HOME);
-  }
-
-  async clickSignupLogin(): Promise<void> {
-    await this.navigation.clickSignupLogin();
-  }
-
-  async clickDeleteAccount(): Promise<void> {
-    await this.navigation.clickDeleteAccount();
+    await BrowserUtils.goto(this.page, Routes.WEB.HOME);
   }
 
   async verifyLoggedInVisible(): Promise<void> {

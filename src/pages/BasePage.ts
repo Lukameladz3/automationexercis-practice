@@ -16,12 +16,6 @@ export abstract class BasePage {
         return this.page.getByTestId(name).describe(description);
     }
 
-    async goto(url: string): Promise<void> {
-        await this.page.goto(url, {
-            waitUntil: 'domcontentloaded',
-        });
-    }
-
     async verifyPageOpened(customMessage?: string): Promise<void> {
         if (!this.uniqueLocator) {
             throw new Error(

@@ -19,7 +19,6 @@ export const test = base.extend<PageFixtures>({
     await use(new AccountCreatedPage(page));
   },
   
-  // Note: If homePage requires 'navigation', make sure 'navigation' is also defined as a fixture!
   homePage: async ({ page }, use) => {
     const navigation = new NavigationMenu(page); 
     await use(new HomePage(page, navigation));
