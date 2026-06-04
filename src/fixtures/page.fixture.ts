@@ -1,4 +1,4 @@
-import { test as base, expect, Page } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { NavigationMenu } from '@components/NavigationMenu';
 import { AccountCreatedPage } from '@pages/AccountCreatedPage';
 import { AccountDeletedPage } from '@pages/AccountDeletedPage';

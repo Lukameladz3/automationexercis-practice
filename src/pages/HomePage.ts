@@ -1,7 +1,5 @@
-import { expect, Locator, Page, Response } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 import { NavigationMenu } from "../components/NavigationMenu";
-import { Routes } from "../constants/Routes";
-import { BrowserUtils } from "../utils/BrowserUtils";
 import { BasePage } from "./BasePage";
 
 export class HomePage extends BasePage {
@@ -18,10 +16,6 @@ export class HomePage extends BasePage {
       .describe("Logged in text");
   }
 
-  async goto(): Promise<Response | null> {
-    return BrowserUtils.goto(this.page, Routes.WEB.HOME);
-  }
-
   async verifyLoggedInVisible() {
     return expect(
       this.loggedInText,
@@ -33,6 +27,6 @@ export class HomePage extends BasePage {
     return expect(
       this.loggedInText,
       "Logged in text should not be visible",
-    ).not.toBeVisible();
+    ).toBeHidden();
   }
 }
