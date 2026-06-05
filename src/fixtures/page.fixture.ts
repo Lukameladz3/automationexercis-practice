@@ -12,6 +12,7 @@ export type PageFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   signupPage: SignupPage;
+  
 };
 
 export const test = base.extend<PageFixtures>({

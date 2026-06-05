@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { User } from '@models/UserModels';
 
 export class LoginPage extends BasePage {
     readonly newUserHeader: Locator;
@@ -10,6 +11,8 @@ export class LoginPage extends BasePage {
     readonly loginEmailInput: Locator;
     readonly loginPasswordInput: Locator;
     readonly loginBtn: Locator;
+    readonly invalidCredentialsError: Locator;
+    readonly duplicateEmailError: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -21,17 +24,19 @@ export class LoginPage extends BasePage {
         this.loginEmailInput = this.getByDataQa('login-email', 'Login email input');
         this.loginPasswordInput = this.getByDataQa('login-password', 'Login password input');
         this.loginBtn = this.getByDataQa('login-button', 'Login button');
+        this.invalidCredentialsError = this.page.getByText('Your email or password is incorrect!').describe('Invalid credentials error message');
+        this.duplicateEmailError = this.page.getByText('Email Address already exist!').describe('Duplicate email error message');
     }
 
-    async signup(name: string, email: string) {
-        await this.signupNameInput.fill(name);
-        await this.signupEmailInput.fill(email);
+    async signup(user:User) {
+        await this.signupNameInput.fill(user.name);
+        await this.signupEmailInput.fill(user.email);
         return this.signupBtn.click();
     }
 
-    async login(email: string, pass: string) {
-        await this.loginEmailInput.fill(email);
-        await this.loginPasswordInput.fill(pass);
+    async login(user:User) {
+        await this.loginEmailInput.fill(user.email);
+        await this.loginPasswordInput.fill(user.password);
         return this.loginBtn.click();
     }
 }

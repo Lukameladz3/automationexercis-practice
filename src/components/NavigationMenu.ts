@@ -34,4 +34,8 @@ export class NavigationMenu {
     async clickDeleteAccount() {
         return this.deleteAccountLink.click();
     }
+
+    async clickLogout() {
+        return this.logoutLink.click();
+    }
 }
