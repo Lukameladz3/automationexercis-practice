@@ -16,6 +16,7 @@ test.describe("TC-AUTH-005: Register User with existing email", () => {
     accountCreatedPage,
   }) => {
     user = DataFactory.generateUser()
+
     await test.step("Navigate to homepage", async () => {
       await BrowserUtils.goto(page, Routes.WEB.HOME);
       await homePage.verifyPageOpened();

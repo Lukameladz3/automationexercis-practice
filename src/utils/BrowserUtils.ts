@@ -1,4 +1,4 @@
-import { expect, Locator, Page, Response } from '@playwright/test';
+import { Page, Response } from '@playwright/test';
 
 export class BrowserUtils {
     static async goto(page: Page, url: string): Promise<Response | null> {

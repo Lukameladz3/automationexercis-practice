@@ -16,6 +16,7 @@ test.describe("TC-AUTH-002: Login User with correct email and password", () => {
     accountCreatedPage,
   }) => {
     user = DataFactory.generateUser()
+
     await test.step("Navigate to homepage", async () => {
       await BrowserUtils.goto(page, Routes.WEB.HOME);
       await homePage.verifyPageOpened();

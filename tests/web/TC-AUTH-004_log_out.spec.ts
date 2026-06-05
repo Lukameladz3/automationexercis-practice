@@ -16,6 +16,7 @@ test.describe("TC-AUTH-004: Logout User", () => {
     accountCreatedPage,
   }) => {
     user = DataFactory.generateUser()
+    
     await test.step("Navigate to homepage", async () => {
       await BrowserUtils.goto(page, Routes.WEB.HOME);
       await homePage.verifyPageOpened();
