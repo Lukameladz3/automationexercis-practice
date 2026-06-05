@@ -7,11 +7,6 @@ export class BrowserUtils {
         });
     }
 
-    static async verifyVisible(locator: Locator, message?: string) {
-        const defaultMessage = 'Element should be visible';
-        return expect(locator, message ?? defaultMessage).toBeVisible();
-    }
-
     static clearSession(page: Page) {
         return page.context().clearCookies();
     }
