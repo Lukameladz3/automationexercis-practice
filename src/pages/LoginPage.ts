@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { User } from '@models/UserModels';
+import { TestData } from '@constants/TestData';
 
 export class LoginPage extends BasePage {
     readonly newUserHeader: Locator;
@@ -24,8 +25,8 @@ export class LoginPage extends BasePage {
         this.loginEmailInput = this.getByDataQa('login-email', 'Login email input');
         this.loginPasswordInput = this.getByDataQa('login-password', 'Login password input');
         this.loginBtn = this.getByDataQa('login-button', 'Login button');
-        this.invalidCredentialsError = this.page.getByText('Your email or password is incorrect!').describe('Invalid credentials error message');
-        this.duplicateEmailError = this.page.getByText('Email Address already exist!').describe('Duplicate email error message');
+        this.invalidCredentialsError = this.page.getByText(TestData.AUTH.ERROR_MESSAGES.INVALID_CREDENTIALS).describe('Invalid credentials error message');
+        this.duplicateEmailError = this.page.getByText(TestData.AUTH.ERROR_MESSAGES.DUPLICATE_EMAIL).describe('Duplicate email error message');
     }
 
     async signup(user:User) {
