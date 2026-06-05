@@ -13,7 +13,13 @@ export default defineConfig({
         testIdAttribute: "data-qa",
         navigationTimeout: 60_000,
         baseURL: process.env.BASE_URL || "https://www.automationexercise.com",
-        actionTimeout: 15_000
+        actionTimeout: 15_000,
+        launchOptions: {
+            args: [
+                '--disable-blink-features=AutomationControlled',
+                '--no-sandbox',
+            ],
+        },
     },
 
     projects: [
