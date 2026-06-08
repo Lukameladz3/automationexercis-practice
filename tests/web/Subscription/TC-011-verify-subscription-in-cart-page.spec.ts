@@ -16,24 +16,14 @@ test.describe('TC-011: Verify Subscription in Cart Page', () => {
             return homePage.verifyPageOpened();
         });
 
-        await test.step('Navigate to Cart page', async () => {
+        await test.step('Navigate to Cart page and verify subscription section is visible', async () => {
             await homePage.navigationMenu.clickCart();
+            return cartPage.verifySubscriptionVisible();
         });
 
-        await test.step('Scroll to subscription section in footer', async () => {
-            await cartPage.subscriptionEmailInput.scrollIntoViewIfNeeded();
-        });
-
-        await test.step('Verify Subscription heading is visible', async () => {
-            await cartPage.verifySubscriptionVisible();
-        });
-
-        await test.step('Enter email and submit subscription', async () => {
+        await test.step('Subscribe with email and verify success message', async () => {
             await cartPage.subscribeWithEmail(testEmail);
-        });
-
-        await test.step('Verify subscription success message is displayed', async () => {
-            await cartPage.verifySubscriptionSuccess();
+            return cartPage.verifySubscriptionSuccess();
         });
     });
 });

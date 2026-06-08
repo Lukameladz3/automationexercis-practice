@@ -34,7 +34,7 @@ export class ProductDetailPage extends BasePage {
             .describe('Product brand');
     }
 
-    async verifyProductDetailVisible(): Promise<void> {
+    async verifyProductDetailVisible() {
         await expect(
             this.productName,
             'Product name should be visible on detail page',

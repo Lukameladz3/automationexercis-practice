@@ -5,10 +5,16 @@ import { AccountDeletedPage } from '@pages/AccountDeletedPage';
 import { HomePage } from '@pages/HomePage';
 import { LoginPage } from '@pages/LoginPage';
 import { SignupPage } from '@pages/SignupPage';
+import { ContactUsPage } from '@pages/ContactUsPage';
+import { TestCasesPage } from '@pages/TestCasesPage';
+import { ProductsPage } from '@pages/ProductsPage';
+import { ProductDetailPage } from '@pages/ProductDetailPage';
+import { CartPage } from '@pages/CartPage';
 
 export type PageFixtures = {
     accountCreatedPage: AccountCreatedPage;
     accountDeletedPage: AccountDeletedPage;
+    contactUsPage: ContactUsPage;
     homePage: HomePage;
     loginPage: LoginPage;
     signupPage: SignupPage;
@@ -38,6 +44,10 @@ export const test = base.extend<PageFixtures>({
 
     accountDeletedPage: async ({ page }, use) => {
         await use(new AccountDeletedPage(page));
+    },
+
+    contactUsPage: async ({ page }, use) => {
+        await use(new ContactUsPage(page));
     },
 
     testCasesPage: async ({ page }, use) => {

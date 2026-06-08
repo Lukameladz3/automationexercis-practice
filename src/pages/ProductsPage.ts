@@ -27,7 +27,7 @@ export class ProductsPage extends BasePage {
             .describe('Individual product items');
     }
 
-    async search(keyword: string): Promise<void> {
+    async search(keyword: string) {
         await this.searchInput.fill(keyword);
         await this.searchButton.click();
     }

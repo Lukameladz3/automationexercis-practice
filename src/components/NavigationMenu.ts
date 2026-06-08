@@ -43,6 +43,10 @@ export class NavigationMenu {
         return this.logoutLink.click();
     }
 
+    async clickContactUs() {
+        return this.contactUsLink.click();
+    }
+
     async clickTestCases() {
         return this.testCasesLink.click();
     }

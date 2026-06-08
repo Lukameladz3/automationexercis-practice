@@ -14,25 +14,19 @@ test.describe('TC-008: Verify All Products and Product Detail Page', () => {
             return homePage.verifyPageOpened();
         });
 
-        await test.step('Navigate to Products page', async () => {
+        await test.step('Navigate to Products page and verify products list is displayed', async () => {
             await homePage.navigationMenu.clickProducts();
-            return productsPage.verifyPageOpened(
+            await productsPage.verifyPageOpened(
                 'After clicking Products in navigation, Products page should be open',
             );
-        });
-
-        await test.step('Verify products list is displayed', async () => {
             await expect(productsPage.productsList).toBeVisible();
             const productsCount = await productsPage.getProductCount();
-            expect(productsCount).toBeGreaterThan(0);
+            return expect(productsCount).toBeGreaterThan(0);
         });
 
-        await test.step('Click View Product on the first product', async () => {
+        await test.step('Open first product and verify product details are displayed', async () => {
             await productsPage.clickViewProduct(0);
-            return productDetailPage.verifyPageOpened('Product detail page should be open');
-        });
-
-        await test.step('Verify product detail information is displayed', async () => {
+            await productDetailPage.verifyPageOpened('Product detail page should be open');
             return productDetailPage.verifyProductDetailVisible();
         });
     });

@@ -30,7 +30,7 @@ export class HomePage extends BasePage {
         this.footer.scrollIntoViewIfNeeded();
     }
 
-    async verifySubscriptionVisible(): Promise<void> {
+    async verifySubscriptionVisible() {
         await expect(this.subscriptionText, 'Subscription text should be visible').toBeVisible();
     }
 }

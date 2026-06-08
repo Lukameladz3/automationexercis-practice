@@ -12,12 +12,9 @@ test.describe('TC-010: Verify Subscription in Home Page', () => {
             return homePage.verifyPageOpened();
         });
 
-        await test.step('Scroll down to footer', async () => {
+        await test.step('Scroll to footer and verify subscription section is visible', async () => {
             await homePage.scrollToFooter();
-        });
-
-        await test.step('Verify Subscription heading is visible', async () => {
-            await homePage.verifySubscriptionVisible();
+            return homePage.verifySubscriptionVisible();
         });
     });
 });

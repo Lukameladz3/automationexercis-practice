@@ -16,30 +16,21 @@ test.describe('TC-009: Search Product', () => {
             return homePage.verifyPageOpened();
         });
 
-        await test.step('Navigate to Products page', async () => {
+        await test.step('Navigate to Products page and verify products list is displayed', async () => {
             await homePage.navigationMenu.clickProducts();
-            return productsPage.verifyPageOpened(
+            await productsPage.verifyPageOpened(
                 'After clicking Products in navigation, Products page should be open',
             );
-        });
-
-        await test.step('Verify products list is displayed', async () => {
             await expect(productsPage.productsList).toBeVisible();
             const productsCount = await productsPage.getProductCount();
-            expect(productsCount).toBeGreaterThan(0);
+            return expect(productsCount).toBeGreaterThan(0);
         });
 
-        await test.step(`Search for "${searchTerm}"`, async () => {
+        await test.step(`Search for "${searchTerm}" and verify results are displayed`, async () => {
             await productsPage.search(searchTerm);
-        });
-
-        await test.step('Verify searched products heading is displayed', async () => {
             await expect(productsPage.searchedProductsHeading).toBeVisible();
-        });
-
-        await test.step('Verify search results contain matching products', async () => {
             const productCount = await productsPage.productItems.count();
-            expect(productCount, `Should have products matching "${searchTerm}"`).toBeGreaterThan(
+            return expect(productCount, `Should have products matching "${searchTerm}"`).toBeGreaterThan(
                 0,
             );
         });

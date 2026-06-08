@@ -10,12 +10,12 @@ test.describe('TC-007: Test Cases Page', () => {
     }) => {
         await test.step('Navigate to homepage', async () => {
             await BrowserUtils.goto(page, Routes.WEB.HOME);
-            await homePage.verifyPageOpened();
+            return homePage.verifyPageOpened();
         });
 
         await test.step('Click Test Cases in navigation menu', async () => {
             await homePage.navigationMenu.clickTestCases();
-            await testCasesPage.verifyPageOpened(
+            return testCasesPage.verifyPageOpened(
                 'After clicking Test Cases in navigation menu, Test Cases page should be open',
             );
         });
