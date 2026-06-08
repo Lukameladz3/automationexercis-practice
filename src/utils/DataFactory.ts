@@ -1,3 +1,4 @@
+import { ContactData } from '@models/ContactModel';
 import { USER_DEFAULTS } from '../constants/UserDefaults';
 import { User } from '../models/UserModels';
 import { RandomDataGenerator } from './RandomDataGenerator';
@@ -35,6 +36,19 @@ export class DataFactory {
             state: RandomDataGenerator.state(),
             title: RandomDataGenerator.arrayElement([...USER_DEFAULTS.TITLES]),
             zipcode: RandomDataGenerator.zipCode(),
+        };
+    }
+
+    static generateContactData(): ContactData {
+        const email = RandomDataGenerator.email();
+        const firstName = RandomDataGenerator.firstName();
+        const lastName = RandomDataGenerator.lastName();
+
+        return {
+            email: email,
+            message: RandomDataGenerator.wordsGenerator(5),
+            name: `${firstName} ${lastName}`,
+            subject: RandomDataGenerator.wordsGenerator(2),
         };
     }
 }

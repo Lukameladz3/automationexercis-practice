@@ -12,6 +12,10 @@ export type PageFixtures = {
     homePage: HomePage;
     loginPage: LoginPage;
     signupPage: SignupPage;
+    testCasesPage: TestCasesPage;
+    productsPage: ProductsPage;
+    productDetailPage: ProductDetailPage;
+    cartPage: CartPage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -34,6 +38,22 @@ export const test = base.extend<PageFixtures>({
 
     accountDeletedPage: async ({ page }, use) => {
         await use(new AccountDeletedPage(page));
+    },
+
+    testCasesPage: async ({ page }, use) => {
+        await use(new TestCasesPage(page));
+    },
+
+    productsPage: async ({ page }, use) => {
+        await use(new ProductsPage(page));
+    },
+
+    productDetailPage: async ({ page }, use) => {
+        await use(new ProductDetailPage(page));
+    },
+
+    cartPage: async ({ page }, use) => {
+        await use(new CartPage(page));
     },
 });
 
