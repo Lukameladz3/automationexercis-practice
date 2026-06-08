@@ -21,10 +21,9 @@ export default defineConfig({
 
     projects: [
         {
-            name: 'Google Chrome (Branded)',
+            name: 'Chromium',
             use: {
                 ...devices['Desktop Chrome'],
-                channel: 'chrome',
                 viewport: { width: 1920, height: 1080 },
                 launchOptions: {
                     args: ['--disable-features=LocalNetworkAccessChecks'],
