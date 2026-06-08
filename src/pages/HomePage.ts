@@ -27,10 +27,10 @@ export class HomePage extends BasePage {
     }
 
     async scrollToFooter() {
-        this.footer.scrollIntoViewIfNeeded();
+        return this.footer.scrollIntoViewIfNeeded();
     }
 
     async verifySubscriptionVisible() {
-        await expect(this.subscriptionText, 'Subscription text should be visible').toBeVisible();
+        return expect(this.subscriptionText, 'Subscription text should be visible').toBeVisible();
     }
 }

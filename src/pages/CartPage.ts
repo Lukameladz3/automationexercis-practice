@@ -27,18 +27,18 @@ export class CartPage extends BasePage {
     async subscribeWithEmail(email: string) {
         await this.subscriptionEmailInput.scrollIntoViewIfNeeded();
         await this.subscriptionEmailInput.fill(email);
-        await this.subscriptionButton.click();
+        return this.subscriptionButton.click();
     }
 
     async verifySubscriptionVisible() {
-        await expect(
+        return expect(
             this.subscriptionHeading,
             'Subscription heading should be visible',
         ).toBeVisible();
     }
 
     async verifySubscriptionSuccess() {
-        await expect(
+        return expect(
             this.subscriptionSuccessMessage,
             'Subscription success message should be visible',
         ).toContainText('You have been successfully subscribed!');

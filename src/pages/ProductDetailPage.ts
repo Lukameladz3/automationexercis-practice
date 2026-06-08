@@ -55,7 +55,7 @@ export class ProductDetailPage extends BasePage {
             this.productCondition,
             'Product condition should be visible on detail page',
         ).toBeVisible();
-        await expect(
+        return expect(
             this.productBrand,
             'Product brand should be visible on detail page',
         ).toBeVisible();

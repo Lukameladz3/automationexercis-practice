@@ -41,7 +41,7 @@ export class ContactUsPage extends BasePage {
         await this.nameInput.fill(data.name);
         await this.emailInput.fill(data.email);
         await this.subjectInput.fill(data.subject);
-        await this.messageTextarea.fill(data.message);
+        return this.messageTextarea.fill(data.message);
     }
 
     async uploadFile(filePath: string) {
@@ -53,18 +53,18 @@ export class ContactUsPage extends BasePage {
             dialog.accept();
         });
 
-        await this.submitButton.click();
+        return this.submitButton.click();
     }
 
     async verifySuccessMessage() {
-        await expect(
+        return expect(
             this.successMessage,
             'Success message element should be attached after contact form submission',
         ).toBeAttached();
     }
 
     async clickHomeButton() {
-        await this.homeButton.click();
+        return this.homeButton.click();
     }
 
     async verifyFormContentVisible() {
@@ -73,6 +73,6 @@ export class ContactUsPage extends BasePage {
             'Get in touch heading should be visible',
         ).toBeVisible();
         await expect(this.nameInput, 'Name input should be visible').toBeVisible();
-        await expect(this.submitButton, 'Submit button should be visible').toBeVisible();
+        return expect(this.submitButton, 'Submit button should be visible').toBeVisible();
     }
 }

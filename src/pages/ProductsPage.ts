@@ -29,7 +29,7 @@ export class ProductsPage extends BasePage {
 
     async search(keyword: string) {
         await this.searchInput.fill(keyword);
-        await this.searchButton.click();
+        return this.searchButton.click();
     }
 
     async getProductCount(): Promise<number> {
@@ -42,6 +42,6 @@ export class ProductsPage extends BasePage {
             .getByRole('link', { name: /view product/i });
 
         await viewProductLink.scrollIntoViewIfNeeded();
-        await viewProductLink.click();
+        return viewProductLink.click();
     }
 }
