@@ -1,6 +1,6 @@
-import { USER_DEFAULTS } from "../constants/UserDefaults";
-import { User } from "../models/UserModels";
-import { RandomDataGenerator } from "./RandomDataGenerator";
+import { USER_DEFAULTS } from '../constants/UserDefaults';
+import { User } from '../models/UserModels';
+import { RandomDataGenerator } from './RandomDataGenerator';
 
 export class DataFactory {
     static generateUser(): User {
@@ -10,9 +10,19 @@ export class DataFactory {
         return {
             address1: RandomDataGenerator.streetAddress(),
             address2: RandomDataGenerator.secondaryAddress(),
-            birthDay: String(RandomDataGenerator.integer(USER_DEFAULTS.BIRTH_DAY_MIN, USER_DEFAULTS.BIRTH_DAY_MAX)),
+            birthDay: String(
+                RandomDataGenerator.integer(
+                    USER_DEFAULTS.BIRTH_DAY_MIN,
+                    USER_DEFAULTS.BIRTH_DAY_MAX,
+                ),
+            ),
             birthMonth: RandomDataGenerator.monthName(),
-            birthYear: String(RandomDataGenerator.integer(USER_DEFAULTS.BIRTH_YEAR_MIN, USER_DEFAULTS.BIRTH_YEAR_MAX)),
+            birthYear: String(
+                RandomDataGenerator.integer(
+                    USER_DEFAULTS.BIRTH_YEAR_MIN,
+                    USER_DEFAULTS.BIRTH_YEAR_MAX,
+                ),
+            ),
             city: RandomDataGenerator.city(),
             company: RandomDataGenerator.companyName(),
             country: USER_DEFAULTS.COUNTRY,

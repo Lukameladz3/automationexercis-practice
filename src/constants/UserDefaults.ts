@@ -4,6 +4,6 @@ export const USER_DEFAULTS = {
     BIRTH_YEAR_MIN: 1980,
     BIRTH_YEAR_MAX: 2000,
     PASSWORD_LENGTH: 10,
-    COUNTRY: "United States",
-    TITLES: ["Mr", "Mrs"] as const,
+    COUNTRY: 'United States',
+    TITLES: ['Mr', 'Mrs'] as const,
 } as const;
