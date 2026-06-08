@@ -7,34 +7,34 @@ import { LoginPage } from '@pages/LoginPage';
 import { SignupPage } from '@pages/SignupPage';
 
 export type PageFixtures = {
-  accountCreatedPage: AccountCreatedPage;
-  accountDeletedPage: AccountDeletedPage;
-  homePage: HomePage;
-  loginPage: LoginPage;
-  signupPage: SignupPage;
+    accountCreatedPage: AccountCreatedPage;
+    accountDeletedPage: AccountDeletedPage;
+    homePage: HomePage;
+    loginPage: LoginPage;
+    signupPage: SignupPage;
 };
 
 export const test = base.extend<PageFixtures>({
-  accountCreatedPage: async ({ page }, use) => {
-    await use(new AccountCreatedPage(page));
-  },
-  
-  homePage: async ({ page }, use) => {
-    const navigation = new NavigationMenu(page); 
-    await use(new HomePage(page, navigation));
-  },
+    accountCreatedPage: async ({ page }, use) => {
+        await use(new AccountCreatedPage(page));
+    },
 
-  loginPage: async ({ page }, use) => {
-    await use(new LoginPage(page));
-  },
+    homePage: async ({ page }, use) => {
+        const navigation = new NavigationMenu(page);
+        await use(new HomePage(page, navigation));
+    },
 
-  signupPage: async ({ page }, use) => {
-    await use(new SignupPage(page));
-  },
+    loginPage: async ({ page }, use) => {
+        await use(new LoginPage(page));
+    },
 
-  accountDeletedPage: async ({ page }, use) => {
-    await use(new AccountDeletedPage(page));
-  },
+    signupPage: async ({ page }, use) => {
+        await use(new SignupPage(page));
+    },
+
+    accountDeletedPage: async ({ page }, use) => {
+        await use(new AccountDeletedPage(page));
+    },
 });
 
 export { expect };

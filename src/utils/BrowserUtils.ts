@@ -6,4 +6,8 @@ export class BrowserUtils {
             waitUntil: 'domcontentloaded',
         });
     }
+
+    static clearSession(page: Page) {
+        return page.context().clearCookies();
+    }
 }

@@ -3,12 +3,12 @@ import { NavigationMenu } from '../components/NavigationMenu';
 
 export abstract class BasePage {
     readonly page: Page;
-    readonly navigation: NavigationMenu;
+    readonly navigationMenu: NavigationMenu;
     readonly uniqueLocator?: Locator;
 
     constructor(page: Page, uniqueLocator?: Locator) {
         this.page = page;
-        this.navigation = new NavigationMenu(page);
+        this.navigationMenu = new NavigationMenu(page);
         this.uniqueLocator = uniqueLocator;
     }
 

@@ -7,12 +7,16 @@ export default defineConfig({
     retries: process.env.CI ? 2 : 0,
     workers: process.env.CI ? 1 : undefined,
     reporter: 'html',
+    timeout: 60_000,
     use: {
-        trace: 'on-first-retry',
-        testIdAttribute: "data-qa",
+        trace: 'on',
+        testIdAttribute: 'data-qa',
         navigationTimeout: 60_000,
-        baseURL: process.env.BASE_URL || "https://www.automationexercise.com",
-        actionTimeout: 15_000
+        baseURL: process.env.BASE_URL || 'https://www.automationexercise.com',
+        actionTimeout: 15_000,
+        launchOptions: {
+            args: ['--disable-blink-features=AutomationControlled', '--no-sandbox'],
+        },
     },
 
     projects: [
@@ -20,6 +24,5 @@ export default defineConfig({
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] },
         },
-
     ],
 });
