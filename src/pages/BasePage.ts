@@ -22,8 +22,13 @@ export abstract class BasePage {
                 'Cannot verify page opened: uniqueLocator not defined in page object constructor',
             );
         }
-
         const message = customMessage || `Page should be opened (unique locator should be visible)`;
         return expect(this.uniqueLocator, message).toBeVisible();
+    }
+
+    async waitForLoadState(
+        state: 'domcontentloaded' | 'load' | 'networkidle' = 'load',
+    ): Promise<void> {
+        return this.page.waitForLoadState(state);
     }
 }

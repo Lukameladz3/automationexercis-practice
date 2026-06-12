@@ -1,4 +1,4 @@
-import { expect, test } from '@fixtures/page.fixture';
+import { expect, test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
 import { Routes } from '@constants/Routes';
 import { TestData } from '@constants/TestData';
@@ -30,9 +30,10 @@ test.describe('TC-009: Search Product', () => {
             await productsPage.search(searchTerm);
             await expect(productsPage.searchedProductsHeading).toBeVisible();
             const productCount = await productsPage.productItems.count();
-            return expect(productCount, `Should have products matching "${searchTerm}"`).toBeGreaterThan(
-                0,
-            );
+            return expect(
+                productCount,
+                `Should have products matching "${searchTerm}"`,
+            ).toBeGreaterThan(0);
         });
     });
 });

@@ -1,4 +1,4 @@
-import { test, expect } from '@fixtures/page.fixture';
+import { expect, test } from '@fixtures/index';
 import { DataFactory } from '@utils/DataFactory';
 import { TestData } from '@constants/TestData';
 import { User } from '@models/UserModels';
@@ -8,7 +8,7 @@ import { Routes } from '@constants/Routes';
 test.describe('TC-AUTH-002: Login User with correct email and password', () => {
     let user: User;
 
-    test.beforeEach(async ({ page, homePage, loginPage, signupPage, accountCreatedPage }) => {
+    test.beforeEach(async ({ page, homePage, signUpLogInPage, signupPage, accountCreatedPage }) => {
         user = DataFactory.generateUser();
 
         await test.step('Navigate to homepage', async () => {
@@ -19,13 +19,13 @@ test.describe('TC-AUTH-002: Login User with correct email and password', () => {
         await test.step('Navigate to signup page', async () => {
             await homePage.navigationMenu.clickSignupLogin();
             return expect(
-                loginPage.newUserHeader,
+                signUpLogInPage.newUserHeader,
                 'New User Signup! header should be visible',
             ).toBeVisible();
         });
 
         await test.step('Enter signup credentials', async () => {
-            return loginPage.signup(user);
+            return signUpLogInPage.signup(user);
         });
 
         await test.step('Verify account information page loaded', async () => {
@@ -59,7 +59,7 @@ test.describe('TC-AUTH-002: Login User with correct email and password', () => {
     test('should successfully log in with valid credentials and verify logged in state', async ({
         page,
         homePage,
-        loginPage,
+        signUpLogInPage,
         accountDeletedPage,
     }) => {
         await test.step('Navigate to homepage', async () => {
@@ -70,13 +70,13 @@ test.describe('TC-AUTH-002: Login User with correct email and password', () => {
         await test.step('Navigate to login page', async () => {
             await homePage.navigationMenu.clickSignupLogin();
             return expect(
-                loginPage.newUserHeader,
+                signUpLogInPage.newUserHeader,
                 'New User Signup! header should be visible',
             ).toBeVisible();
         });
 
         await test.step('Enter login credentials', async () => {
-            return loginPage.login(user);
+            return signUpLogInPage.login(user);
         });
 
         await test.step('Verify user is logged in', async () => {

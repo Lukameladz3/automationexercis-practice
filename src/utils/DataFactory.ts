@@ -2,6 +2,7 @@ import { ContactData } from '@models/ContactModel';
 import { USER_DEFAULTS } from '../constants/UserDefaults';
 import { User } from '../models/UserModels';
 import { RandomDataGenerator } from './RandomDataGenerator';
+import { PaymentDetails } from '@models/PaymentModels';
 
 export class DataFactory {
     static generateUser(): User {
@@ -49,6 +50,16 @@ export class DataFactory {
             message: RandomDataGenerator.wordsGenerator(5),
             name: `${firstName} ${lastName}`,
             subject: RandomDataGenerator.wordsGenerator(2),
+        };
+    }
+
+    static generatePaymentDetails(): PaymentDetails {
+        return {
+            cardNumber: RandomDataGenerator.creditCardNumber(),
+            cvc: RandomDataGenerator.creditCardCVV(),
+            expiryMonth: RandomDataGenerator.paddedNumber(RandomDataGenerator.integer(1, 12), 2),
+            expiryYear: String(RandomDataGenerator.integer(2025, 2030)),
+            nameOnCard: RandomDataGenerator.fullName(),
         };
     }
 }

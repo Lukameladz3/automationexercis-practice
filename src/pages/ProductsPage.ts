@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { RandomNumberGenerator } from '@utils/RandomNumberGenerator';
 
 export class ProductsPage extends BasePage {
     readonly searchInput: Locator;
@@ -7,6 +8,9 @@ export class ProductsPage extends BasePage {
     readonly searchedProductsHeading: Locator;
     readonly productsList: Locator;
     readonly productItems: Locator;
+    readonly viewCartModal: Locator;
+    readonly continueShoppingButton: Locator;
+    readonly viewCartButton: Locator;
 
     constructor(page: Page) {
         super(
@@ -25,6 +29,14 @@ export class ProductsPage extends BasePage {
         this.productItems = this.productsList
             .locator('.col-sm-4')
             .describe('Individual product items');
+        this.viewCartModal = this.page.locator('.modal-content').describe('View cart modal');
+        this.continueShoppingButton = this.viewCartModal
+            .getByRole('button', { name: /continue shopping/i })
+            .describe('Continue shopping button');
+        this.viewCartModal = this.page.locator('.modal-content').describe('View cart modal');
+        this.viewCartButton = this.viewCartModal
+            .getByRole('link', { name: /view cart/i })
+            .describe('View cart button in modal');
     }
 
     async search(keyword: string) {
@@ -36,12 +48,31 @@ export class ProductsPage extends BasePage {
         return this.productItems.count();
     }
 
-    async clickViewProduct(index: number) {
+    async clickViewProduct(index?: number) {
+        const productIndex =
+            index !== undefined
+                ? index
+                : RandomNumberGenerator.getRandomArbitrary(0, await this.getProductCount());
+
         const viewProductLink = this.productItems
-            .nth(index)
+            .nth(productIndex)
             .getByRole('link', { name: /view product/i });
 
         await viewProductLink.scrollIntoViewIfNeeded();
         return viewProductLink.click();
+    }
+
+    async addProductToCart(index: number): Promise<void> {
+        const product = this.productItems.nth(index);
+        await product.hover();
+        await product.locator('.add-to-cart').first().click();
+    }
+
+    async clickContinueShopping(): Promise<void> {
+        await this.continueShoppingButton.click();
+    }
+
+    async clickViewCart(): Promise<void> {
+        await this.viewCartButton.click();
     }
 }

@@ -1,4 +1,4 @@
-import { test } from '@fixtures/page.fixture';
+import { test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
 import { Routes } from '@constants/Routes';
 

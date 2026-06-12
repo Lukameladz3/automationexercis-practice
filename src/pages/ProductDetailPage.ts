@@ -8,6 +8,11 @@ export class ProductDetailPage extends BasePage {
     readonly productAvailability: Locator;
     readonly productCondition: Locator;
     readonly productBrand: Locator;
+    readonly quantityInput: Locator;
+    readonly viewCartModal: Locator;
+    readonly addToCartButton: Locator;
+    readonly continueShoppingButton: Locator;
+    readonly viewCartButton: Locator;
 
     constructor(page: Page) {
         super(page, page.locator('.product-information h2'));
@@ -32,6 +37,17 @@ export class ProductDetailPage extends BasePage {
             .locator('.product-information p')
             .filter({ hasText: /brand/i })
             .describe('Product brand');
+        this.quantityInput = this.page.locator('#quantity').describe('Quantity input');
+        this.quantityInput = this.page.locator('#quantity').describe('Quantity input');
+        this.viewCartModal = this.page.locator('.modal-content').describe('View cart modal');
+        this.continueShoppingButton = this.viewCartModal
+            .getByRole('button', { name: /continue shopping/i })
+            .describe('Continue shopping button');
+        this.addToCartButton = this.page.locator('button.cart').describe('Add to cart button');
+        this.productName = this.page.locator('.product-information h2').describe('Product name');
+        this.viewCartButton = this.viewCartModal
+            .getByRole('link', { name: /view cart/i })
+            .describe('View cart button in modal');
     }
 
     async verifyProductDetailVisible() {
@@ -59,5 +75,29 @@ export class ProductDetailPage extends BasePage {
             this.productBrand,
             'Product brand should be visible on detail page',
         ).toBeVisible();
+    }
+
+    async setQuantity(quantity: number): Promise<void> {
+        await this.quantityInput.clear();
+        await this.quantityInput.fill(String(quantity));
+    }
+
+    async addToCart(): Promise<void> {
+        await this.addToCartButton.click();
+        await this.viewCartModal.waitFor({ state: 'visible' });
+    }
+
+    async clickContinueShopping(): Promise<void> {
+        await this.continueShoppingButton.click();
+        await this.viewCartModal.waitFor({ state: 'hidden' });
+    }
+
+    async getProductName(): Promise<string> {
+        const name = await this.productName.textContent();
+        return name?.trim() || '';
+    }
+
+    async clickViewCart(): Promise<void> {
+        await this.viewCartButton.click();
     }
 }

@@ -1,70 +1,88 @@
-import { test as base, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { NavigationMenu } from '@components/NavigationMenu';
 import { AccountCreatedPage } from '@pages/AccountCreatedPage';
 import { AccountDeletedPage } from '@pages/AccountDeletedPage';
-import { HomePage } from '@pages/HomePage';
-import { LoginPage } from '@pages/LoginPage';
-import { SignupPage } from '@pages/SignupPage';
-import { ContactUsPage } from '@pages/ContactUsPage';
-import { TestCasesPage } from '@pages/TestCasesPage';
-import { ProductsPage } from '@pages/ProductsPage';
-import { ProductDetailPage } from '@pages/ProductDetailPage';
 import { CartPage } from '@pages/CartPage';
+import { CheckoutPage } from '@pages/CheckoutPage';
+import { ContactUsPage } from '@pages/ContactUsPage';
+import { HomePage } from '@pages/HomePage';
+import { SignUpLoginPage } from '@pages/SignUpLoginPage';
+import { PaymentDonePage } from '@pages/PaymentDonePage';
+import { PaymentPage } from '@pages/PaymentPage';
+import { ProductDetailPage } from '@pages/ProductDetailPage';
+import { ProductsPage } from '@pages/ProductsPage';
+import { SignupPage } from '@pages/SignupPage';
+import { TestCasesPage } from '@pages/TestCasesPage';
+
+type Use<T> = (value: T) => Promise<void>;
 
 export type PageFixtures = {
     accountCreatedPage: AccountCreatedPage;
     accountDeletedPage: AccountDeletedPage;
+    cartPage: CartPage;
+    checkoutPage: CheckoutPage;
     contactUsPage: ContactUsPage;
     homePage: HomePage;
-    loginPage: LoginPage;
+    signUpLogInPage: SignUpLoginPage;
+    paymentDonePage: PaymentDonePage;
+    paymentPage: PaymentPage;
+    productDetailPage: ProductDetailPage;
+    productsPage: ProductsPage;
     signupPage: SignupPage;
     testCasesPage: TestCasesPage;
-    productsPage: ProductsPage;
-    productDetailPage: ProductDetailPage;
-    cartPage: CartPage;
 };
 
-export const test = base.extend<PageFixtures>({
-    accountCreatedPage: async ({ page }, use) => {
+export const pageFixtures = {
+    accountCreatedPage: async ({ page }: { page: Page }, use: Use<AccountCreatedPage>) => {
         await use(new AccountCreatedPage(page));
     },
 
-    homePage: async ({ page }, use) => {
+    accountDeletedPage: async ({ page }: { page: Page }, use: Use<AccountDeletedPage>) => {
+        await use(new AccountDeletedPage(page));
+    },
+
+    cartPage: async ({ page }: { page: Page }, use: Use<CartPage>) => {
+        await use(new CartPage(page));
+    },
+
+    checkoutPage: async ({ page }: { page: Page }, use: Use<CheckoutPage>) => {
+        await use(new CheckoutPage(page));
+    },
+
+    contactUsPage: async ({ page }: { page: Page }, use: Use<ContactUsPage>) => {
+        await use(new ContactUsPage(page));
+    },
+
+    homePage: async ({ page }: { page: Page }, use: Use<HomePage>) => {
         const navigation = new NavigationMenu(page);
         await use(new HomePage(page, navigation));
     },
 
-    loginPage: async ({ page }, use) => {
-        await use(new LoginPage(page));
+    signUpLogInPage: async ({ page }: { page: Page }, use: Use<SignUpLoginPage>) => {
+        await use(new SignUpLoginPage(page));
     },
 
-    signupPage: async ({ page }, use) => {
-        await use(new SignupPage(page));
+    paymentDonePage: async ({ page }: { page: Page }, use: Use<PaymentDonePage>) => {
+        await use(new PaymentDonePage(page));
     },
 
-    accountDeletedPage: async ({ page }, use) => {
-        await use(new AccountDeletedPage(page));
+    paymentPage: async ({ page }: { page: Page }, use: Use<PaymentPage>) => {
+        await use(new PaymentPage(page));
     },
 
-    contactUsPage: async ({ page }, use) => {
-        await use(new ContactUsPage(page));
-    },
-
-    testCasesPage: async ({ page }, use) => {
-        await use(new TestCasesPage(page));
-    },
-
-    productsPage: async ({ page }, use) => {
-        await use(new ProductsPage(page));
-    },
-
-    productDetailPage: async ({ page }, use) => {
+    productDetailPage: async ({ page }: { page: Page }, use: Use<ProductDetailPage>) => {
         await use(new ProductDetailPage(page));
     },
 
-    cartPage: async ({ page }, use) => {
-        await use(new CartPage(page));
+    productsPage: async ({ page }: { page: Page }, use: Use<ProductsPage>) => {
+        await use(new ProductsPage(page));
     },
-});
 
-export { expect };
+    signupPage: async ({ page }: { page: Page }, use: Use<SignupPage>) => {
+        await use(new SignupPage(page));
+    },
+
+    testCasesPage: async ({ page }: { page: Page }, use: Use<TestCasesPage>) => {
+        await use(new TestCasesPage(page));
+    },
+};

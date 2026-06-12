@@ -56,6 +56,6 @@ export class NavigationMenu {
     }
 
     async clickCart() {
-        await this.cartLink.click();
+        return this.cartLink.click();
     }
 }
