@@ -41,7 +41,7 @@ export class PaymentPage extends BasePage {
         const ensureEditable = async (locator: Locator, description: string) => {
             await locator.scrollIntoViewIfNeeded();
             await expect(locator, `${description} should be visible`).toBeVisible();
-            await expect(locator, `${description} should be editable`).toBeEditable();
+            return expect(locator, `${description} should be editable`).toBeEditable();
         };
 
         await ensureEditable(this.nameOnCardInput, 'Name on card input');
@@ -57,15 +57,15 @@ export class PaymentPage extends BasePage {
         await this.expiryMonthInput.fill(payment.expiryMonth);
 
         await ensureEditable(this.expiryYearInput, 'Expiry year input');
-        await this.expiryYearInput.fill(payment.expiryYear);
+        return this.expiryYearInput.fill(payment.expiryYear);
     }
 
     async clickPayAndConfirm(): Promise<void> {
-        await this.payAndConfirmButton.click();
+        return this.payAndConfirmButton.click();
     }
 
     async verifyPaymentPageVisible(): Promise<void> {
         await expect(this.nameOnCardInput, 'Name on card input should be attached').toBeAttached();
-        await expect(this.payAndConfirmButton, 'Pay button should be attached').toBeAttached();
+        return expect(this.payAndConfirmButton, 'Pay button should be attached').toBeAttached();
     }
 }

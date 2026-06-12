@@ -65,14 +65,14 @@ export class ProductsPage extends BasePage {
     async addProductToCart(index: number): Promise<void> {
         const product = this.productItems.nth(index);
         await product.hover();
-        await product.locator('.add-to-cart').first().click();
+        return product.locator('.add-to-cart').first().click();
     }
 
     async clickContinueShopping(): Promise<void> {
-        await this.continueShoppingButton.click();
+        return this.continueShoppingButton.click();
     }
 
     async clickViewCart(): Promise<void> {
-        await this.viewCartButton.click();
+        return this.viewCartButton.click();
     }
 }

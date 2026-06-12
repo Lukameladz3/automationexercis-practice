@@ -79,17 +79,17 @@ export class ProductDetailPage extends BasePage {
 
     async setQuantity(quantity: number): Promise<void> {
         await this.quantityInput.clear();
-        await this.quantityInput.fill(String(quantity));
+        return this.quantityInput.fill(String(quantity));
     }
 
     async addToCart(): Promise<void> {
         await this.addToCartButton.click();
-        await this.viewCartModal.waitFor({ state: 'visible' });
+        return this.viewCartModal.waitFor({ state: 'visible' });
     }
 
     async clickContinueShopping(): Promise<void> {
         await this.continueShoppingButton.click();
-        await this.viewCartModal.waitFor({ state: 'hidden' });
+        return this.viewCartModal.waitFor({ state: 'hidden' });
     }
 
     async getProductName(): Promise<string> {
@@ -98,6 +98,6 @@ export class ProductDetailPage extends BasePage {
     }
 
     async clickViewCart(): Promise<void> {
-        await this.viewCartButton.click();
+        return this.viewCartButton.click();
     }
 }
