@@ -63,18 +63,11 @@ export class PaymentPage extends BasePage {
         await this.expiryYearInput.fill(payment.expiryYear);
     }
 
-    /**
-     * Click pay and confirm order button
-     */
     async clickPayAndConfirm(): Promise<void> {
         await this.payAndConfirmButton.click();
     }
 
-    /**
-     * Verify payment page is loaded (form may be hidden by CSS)
-     */
     async verifyPaymentPageVisible(): Promise<void> {
-        // Just verify inputs are present - form might be styled as hidden but inputs work
         await expect(this.nameOnCardInput, 'Name on card input should be attached').toBeAttached();
         await expect(this.payAndConfirmButton, 'Pay button should be attached').toBeAttached();
     }

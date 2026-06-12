@@ -5,7 +5,7 @@ import { BrowserUtils } from '@utils/BrowserUtils';
 
 export const test = base.extend<PageFixtures & StepsFixtures>({
     page: async ({ page }, use) => {
-        await BrowserUtils.blockAds(page);
+        BrowserUtils.dismissAds(page);
         await use(page);
     },
     ...pageFixtures,
