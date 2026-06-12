@@ -35,9 +35,6 @@ export class PaymentPage extends BasePage {
             .describe('Payment form section');
     }
 
-    /**
-     * Fill all payment details
-     */
     async fillPaymentDetails(payment: PaymentDetails): Promise<void> {
         await this.paymentFormSection.scrollIntoViewIfNeeded();
 
