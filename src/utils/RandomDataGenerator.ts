@@ -61,4 +61,8 @@ export class RandomDataGenerator {
     static arrayElement<T>(array: T[]): T {
         return faker.helpers.arrayElement(array);
     }
+
+    static wordsGenerator(number_of_words: number): string {
+        return faker.word.words(number_of_words);
+    }
 }

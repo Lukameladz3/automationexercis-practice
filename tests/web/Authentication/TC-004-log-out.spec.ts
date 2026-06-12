@@ -90,8 +90,8 @@ test.describe('TC-AUTH-004: Logout User', () => {
             return homePage.navigationMenu.clickLogout();
         });
 
-        await test.step('Verify user is redirected to login page after logging out', async () => {
-            return homePage.verifyPageOpened('After logging out, login page should be displayed');
+        await test.step('Verify user is redirected to home page after logging out', async () => {
+            return homePage.verifyPageOpened('After logging out, home page should be displayed');
         });
     });
 });

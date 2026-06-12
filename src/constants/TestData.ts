@@ -11,4 +11,9 @@ export const TestData = {
     FILES: {
         CONTACT_FORM_ATTACHMENT: 'test-data/test-file.txt',
     },
+    SEARCH: {
+        INVALID_TERM: 'XYZ123NOTFOUND',
+        VALID_TERM_1: 'T-Shirt',
+        VALID_TERM_2: 'Jeans',
+    },
 } as const;
