@@ -26,9 +26,7 @@ export abstract class BasePage {
         return expect(this.uniqueLocator, message).toBeVisible();
     }
 
-    async waitForLoadState(
-        state: 'domcontentloaded' | 'load' | 'networkidle' = 'load',
-    ): Promise<void> {
+    async waitForLoadState(state: 'domcontentloaded' | 'load' | 'networkidle' = 'load') {
         return this.page.waitForLoadState(state);
     }
 }

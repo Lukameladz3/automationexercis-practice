@@ -16,4 +16,26 @@ export const TestData = {
         VALID_TERM_1: 'T-Shirt',
         VALID_TERM_2: 'Jeans',
     },
+    CATEGORIES: {
+        MEN_JEANS: {
+            category: 'Men',
+            expectedTitle: 'Men - Jeans Products',
+            subcategory: 'Jeans',
+        },
+        WOMEN_DRESS: {
+            category: 'Women',
+            expectedTitle: 'Women - Dress Products',
+            subcategory: 'Dress',
+        },
+    },
+    BRANDS: {
+        H_AND_M: {
+            expectedTitle: 'Brand - H&M Products',
+            name: 'H&M',
+        },
+        POLO: {
+            expectedTitle: 'Brand - Polo Products',
+            name: 'Polo',
+        },
+    },
 } as const;

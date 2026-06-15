@@ -64,6 +64,8 @@ export class ProductsPage extends BasePage {
 
     async addProductToCart(index: number): Promise<void> {
         const product = this.productItems.nth(index);
+        const productIndex =
+            index !== undefined
         await product.hover();
         return product.locator('.add-to-cart').first().click();
     }

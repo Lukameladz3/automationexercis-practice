@@ -112,4 +112,14 @@ export class CartPage extends BasePage {
     async clickRegisterLoginFromModal() {
         return this.registerLoginModalLink.click();
     }
+
+    async removeProductByName(productName: string) {
+        const row = this.cartRowByProductName(productName);
+        await expect(
+            row,
+            `Product "${productName}" should exist in cart before removal`,
+        ).toHaveCount(1);
+        await row.locator('.cart_delete a').click();
+        return expect(row, `Product "${productName}" should be removed from cart`).toHaveCount(0);
+    }
 }

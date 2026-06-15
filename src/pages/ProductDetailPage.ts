@@ -77,17 +77,17 @@ export class ProductDetailPage extends BasePage {
         ).toBeVisible();
     }
 
-    async setQuantity(quantity: number): Promise<void> {
+    async setQuantity(quantity: number) {
         await this.quantityInput.clear();
         return this.quantityInput.fill(String(quantity));
     }
 
-    async addToCart(): Promise<void> {
+    async addToCart() {
         await this.addToCartButton.click();
         return this.viewCartModal.waitFor({ state: 'visible' });
     }
 
-    async clickContinueShopping(): Promise<void> {
+    async clickContinueShopping() {
         await this.continueShoppingButton.click();
         return this.viewCartModal.waitFor({ state: 'hidden' });
     }
@@ -97,7 +97,7 @@ export class ProductDetailPage extends BasePage {
         return name?.trim() || '';
     }
 
-    async clickViewCart(): Promise<void> {
+    async clickViewCart() {
         return this.viewCartButton.click();
     }
 }

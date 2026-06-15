@@ -3,6 +3,14 @@ export class RegExpUtils {
         return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
+    static exactMatchRegExp(value: string): RegExp {
+        return new RegExp(`^\\s*${this.escapeRegExp(value)}\\s*$`);
+    }
+
+    static caseInsensitiveRegExp(value: string): RegExp {
+        return new RegExp(this.escapeRegExp(value), 'i');
+    }
+
     static productNameToLooseRegExp(productName: string): RegExp {
         const normalized = productName
             .replace(/\u00a0/g, ' ')

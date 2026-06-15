@@ -17,7 +17,7 @@ export class CheckoutSteps {
     ) {}
 
     @step('Verify delivery address matches user data')
-    async verifyDeliveryAddress(userData: User): Promise<void> {
+    async verifyDeliveryAddress(userData: User) {
         const addressText = await this.checkoutPage.getDeliveryAddressText();
 
         expect(addressText, 'Delivery address should contain first name').toContain(
@@ -37,7 +37,7 @@ export class CheckoutSteps {
     }
 
     @step('Verify billing address matches user data')
-    async verifyBillingAddress(userData: User): Promise<void> {
+    async verifyBillingAddress(userData: User) {
         const addressText = await this.checkoutPage.getBillingAddressText();
 
         expect(addressText, 'Billing address should contain first name').toContain(

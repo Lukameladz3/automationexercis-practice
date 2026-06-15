@@ -12,7 +12,7 @@ export class PaymentDonePage extends BasePage {
             .describe('Order placed success message');
     }
 
-    async verifyOrderSuccess(): Promise<void> {
+    async verifyOrderSuccess() {
         await expect(this.successMessage, 'Order success message should be visible').toBeVisible();
 
         const messageText = await this.successMessage.textContent();

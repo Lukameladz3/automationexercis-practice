@@ -35,7 +35,7 @@ export class PaymentPage extends BasePage {
             .describe('Payment form section');
     }
 
-    async fillPaymentDetails(payment: PaymentDetails): Promise<void> {
+    async fillPaymentDetails(payment: PaymentDetails) {
         await this.paymentFormSection.scrollIntoViewIfNeeded();
 
         const ensureEditable = async (locator: Locator, description: string) => {
@@ -60,11 +60,11 @@ export class PaymentPage extends BasePage {
         return this.expiryYearInput.fill(payment.expiryYear);
     }
 
-    async clickPayAndConfirm(): Promise<void> {
+    async clickPayAndConfirm() {
         return this.payAndConfirmButton.click();
     }
 
-    async verifyPaymentPageVisible(): Promise<void> {
+    async verifyPaymentPageVisible() {
         await expect(this.nameOnCardInput, 'Name on card input should be attached').toBeAttached();
         return expect(this.payAndConfirmButton, 'Pay button should be attached').toBeAttached();
     }
