@@ -1,6 +1,12 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { RandomNumberGenerator } from '@utils/RandomNumberGenerator';
+import { RegExpUtils } from '@utils/RegExpUtils';
+
+interface AddToCartOptions {
+    index?: number;
+    productName?: string;
+}
 
 export class ProductsPage extends BasePage {
     readonly searchInput: Locator;
@@ -8,9 +14,12 @@ export class ProductsPage extends BasePage {
     readonly searchedProductsHeading: Locator;
     readonly productsList: Locator;
     readonly productItems: Locator;
-    readonly viewCartModal: Locator;
+    readonly productAddedToTheCartModal: Locator;
     readonly continueShoppingButton: Locator;
     readonly viewCartButton: Locator;
+    readonly categorySidebar: Locator;
+    readonly productsTitle: Locator;
+    readonly brandsSidebar: Locator;
 
     constructor(page: Page) {
         super(
@@ -29,14 +38,20 @@ export class ProductsPage extends BasePage {
         this.productItems = this.productsList
             .locator('.col-sm-4')
             .describe('Individual product items');
-        this.viewCartModal = this.page.locator('.modal-content').describe('View cart modal');
-        this.continueShoppingButton = this.viewCartModal
+        this.productAddedToTheCartModal = this.page
+            .locator('.modal-content')
+            .describe('Product added to the cart modal');
+        this.continueShoppingButton = this.productAddedToTheCartModal
             .getByRole('button', { name: /continue shopping/i })
             .describe('Continue shopping button');
-        this.viewCartModal = this.page.locator('.modal-content').describe('View cart modal');
-        this.viewCartButton = this.viewCartModal
+        this.viewCartButton = this.productAddedToTheCartModal
             .getByRole('link', { name: /view cart/i })
             .describe('View cart button in modal');
+        this.categorySidebar = this.page
+            .locator('.left-sidebar .panel-group')
+            .describe('Category sidebar');
+        this.productsTitle = this.page.locator('.title.text-center').describe('Products title');
+        this.brandsSidebar = this.page.locator('.brands_products').describe('Brands sidebar');
     }
 
     async search(keyword: string) {
@@ -62,19 +77,58 @@ export class ProductsPage extends BasePage {
         return viewProductLink.click();
     }
 
-    async addProductToCart(index: number): Promise<void> {
-        const product = this.productItems.nth(index);
+    async addProductToCart(options: AddToCartOptions = {}) {
+        const { index, productName } = options;
+
         const productIndex =
             index !== undefined
+                ? index
+                : RandomNumberGenerator.getRandomArbitrary(0, await this.getProductCount());
+
+        const product = productName
+            ? this.productItems.filter({ hasText: productName })
+            : this.productItems.nth(productIndex);
+
         await product.hover();
         return product.locator('.add-to-cart').first().click();
     }
 
-    async clickContinueShopping(): Promise<void> {
+    async clickContinueShopping() {
         return this.continueShoppingButton.click();
     }
 
-    async clickViewCart(): Promise<void> {
+    async clickViewCart() {
         return this.viewCartButton.click();
+    }
+
+    async getProductName(index?: number) {
+        const count = await this.productItems.count();
+        const productIndex =
+            index !== undefined ? index : RandomNumberGenerator.getRandomArbitrary(0, count);
+
+        let product = this.productItems.nth(productIndex);
+        const productName = (await product.locator('.productinfo p').textContent()) || '';
+
+        return productName;
+    }
+
+    async selectCategory(mainCategory: string, subCategory: string) {
+        const mainCategoryLink = this.categorySidebar
+            .getByRole('link')
+            .filter({ hasText: RegExpUtils.exactMatchRegExp(mainCategory) })
+            .first();
+        await mainCategoryLink.click();
+
+        const subCategoryLink = this.categorySidebar
+            .locator('a[href*="category_products"]')
+            .filter({ hasText: RegExpUtils.caseInsensitiveRegExp(subCategory) })
+            .first();
+        return subCategoryLink.click();
+    }
+
+    async selectBrand(brandName: string) {
+        return this.brandsSidebar
+            .getByRole('link', { name: RegExpUtils.caseInsensitiveRegExp(brandName) })
+            .click();
     }
 }
