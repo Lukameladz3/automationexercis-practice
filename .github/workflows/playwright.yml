@@ -47,10 +47,10 @@ jobs:
                   fi
                   
                   if [ -f "test-results.json" ]; then
-                      PASSED=$(jq -r '.stats.expected' test-results.json)
-                      FAILED=$(jq -r '.stats.unexpected' test-results.json)
-                      FLAKY=$(jq -r '.stats.flaky' test-results.json)
-                      SKIPPED=$(jq -r '.stats.skipped // 0' test-results.json)
+                      PASSED=$(node -p "require('./test-results.json').stats.expected || 0")
+                      FAILED=$(node -p "require('./test-results.json').stats.unexpected || 0")
+                      FLAKY=$(node -p "require('./test-results.json').stats.flaky || 0")
+                      SKIPPED=$(node -p "require('./test-results.json').stats.skipped || 0")
                       TOTAL=$((PASSED + FAILED + FLAKY + SKIPPED))
                       RATE=0
                       if [ "$TOTAL" -gt 0 ]; then
