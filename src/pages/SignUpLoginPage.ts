@@ -3,7 +3,7 @@ import { BasePage } from './BasePage';
 import { User } from '@models/UserModels';
 import { TEST_DATA } from '@constants/TestData';
 
-export class LoginPage extends BasePage {
+export class SignUpLoginPage extends BasePage {
     readonly newUserHeader: Locator;
     readonly signupNameInput: Locator;
     readonly signupEmailInput: Locator;

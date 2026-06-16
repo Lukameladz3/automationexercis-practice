@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { ViewCartModal } from '../components/ViewCartModal';
 
 export class ProductDetailPage extends BasePage {
     readonly productName: Locator;
@@ -8,6 +9,9 @@ export class ProductDetailPage extends BasePage {
     readonly productAvailability: Locator;
     readonly productCondition: Locator;
     readonly productBrand: Locator;
+    readonly quantityInput: Locator;
+    readonly viewCartModal: ViewCartModal;
+    readonly addToCartButton: Locator;
 
     constructor(page: Page) {
         super(page, page.locator('.product-information h2'));
@@ -32,6 +36,10 @@ export class ProductDetailPage extends BasePage {
             .locator('.product-information p')
             .filter({ hasText: /brand/i })
             .describe('Product brand');
+        this.quantityInput = this.page.locator('#quantity').describe('Quantity input');
+        this.viewCartModal = new ViewCartModal(this.page);
+        this.addToCartButton = this.page.locator('button.cart').describe('Add to cart button');
+        this.productName = this.page.locator('.product-information h2').describe('Product name');
     }
 
     async verifyProductDetailVisible() {
@@ -59,5 +67,28 @@ export class ProductDetailPage extends BasePage {
             this.productBrand,
             'Product brand should be visible on detail page',
         ).toBeVisible();
+    }
+
+    async setQuantity(quantity: number) {
+        await this.quantityInput.clear();
+        return this.quantityInput.fill(String(quantity));
+    }
+
+    async addToCart() {
+        await this.addToCartButton.click();
+        return this.viewCartModal.waitForVisible();
+    }
+
+    async clickContinueShopping() {
+        return this.viewCartModal.clickContinueShopping();
+    }
+
+    async getProductName(): Promise<string> {
+        const name = await this.productName.textContent();
+        return name?.trim() ?? '';
+    }
+
+    async clickViewCart() {
+        return this.viewCartModal.clickViewCart();
     }
 }

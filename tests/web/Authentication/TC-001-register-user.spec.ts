@@ -1,14 +1,14 @@
-import { test, expect } from '@fixtures/page.fixture';
+import { expect, test } from '@fixtures/index';
 import { DataFactory } from '@utils/DataFactory';
-import { TestData } from '@constants/TestData';
+import { TEST_DATA } from '@constants/TestData';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 
 test.describe('TC-AUTH-001: Register User', () => {
     test('should successfully register a new user and verify account creation', async ({
         page,
         homePage,
-        loginPage,
+        signUpLogInPage,
         signupPage,
         accountCreatedPage,
         accountDeletedPage,
@@ -16,20 +16,20 @@ test.describe('TC-AUTH-001: Register User', () => {
         const user = DataFactory.generateUser();
 
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
         await test.step('Navigate to signup page', async () => {
             await homePage.navigationMenu.clickSignupLogin();
             return expect(
-                loginPage.newUserHeader,
+                signUpLogInPage.newUserHeader,
                 'New User Signup! header should be visible',
             ).toBeVisible();
         });
 
         await test.step('Enter signup credentials', async () => {
-            return loginPage.signup(user);
+            return signUpLogInPage.signup(user);
         });
 
         await test.step('Verify account information page loaded', async () => {
@@ -51,7 +51,7 @@ test.describe('TC-AUTH-001: Register User', () => {
             return expect(
                 accountCreatedPage.successMessage,
                 'ACCOUNT CREATED! message should be displayed',
-            ).toHaveText(TestData.AUTH.SUCCESS_MESSAGES.ACCOUNT_CREATED);
+            ).toHaveText(TEST_DATA.AUTH.SUCCESS_MESSAGES.ACCOUNT_CREATED);
         });
 
         await test.step('Continue to homepage', async () => {

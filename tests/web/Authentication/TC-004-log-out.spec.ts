@@ -1,31 +1,31 @@
-import { test, expect } from '@fixtures/page.fixture';
+import { expect, test } from '@fixtures/index';
 import { DataFactory } from '@utils/DataFactory';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 import { User } from '@models/UserModels';
-import { TestData } from '@constants/TestData';
+import { TEST_DATA } from '@constants/TestData';
 
 test.describe('TC-AUTH-004: Logout User', () => {
     let user: User;
 
-    test.beforeEach(async ({ page, homePage, loginPage, signupPage, accountCreatedPage }) => {
+    test.beforeEach(async ({ page, homePage, signUpLogInPage, signupPage, accountCreatedPage }) => {
         user = DataFactory.generateUser();
 
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
         await test.step('Navigate to signup page', async () => {
             await homePage.navigationMenu.clickSignupLogin();
             return expect(
-                loginPage.newUserHeader,
+                signUpLogInPage.newUserHeader,
                 'New User Signup! header should be visible',
             ).toBeVisible();
         });
 
         await test.step('Enter signup credentials', async () => {
-            return loginPage.signup(user);
+            return signUpLogInPage.signup(user);
         });
 
         await test.step('Verify account information page loaded', async () => {
@@ -47,7 +47,7 @@ test.describe('TC-AUTH-004: Logout User', () => {
             return expect(
                 accountCreatedPage.successMessage,
                 'ACCOUNT CREATED! message should be displayed',
-            ).toHaveText(TestData.AUTH.SUCCESS_MESSAGES.ACCOUNT_CREATED);
+            ).toHaveText(TEST_DATA.AUTH.SUCCESS_MESSAGES.ACCOUNT_CREATED);
         });
 
         await test.step('Continue to homepage and clear session', async () => {
@@ -59,23 +59,23 @@ test.describe('TC-AUTH-004: Logout User', () => {
     test('should successfully log out and be redirected to the login page', async ({
         page,
         homePage,
-        loginPage,
+        signUpLogInPage,
     }) => {
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
         await test.step('Navigate to login page', async () => {
             await homePage.navigationMenu.clickSignupLogin();
             return expect(
-                loginPage.newUserHeader,
+                signUpLogInPage.newUserHeader,
                 'New User Signup! header should be visible',
             ).toBeVisible();
         });
 
         await test.step('Enter correct credentials', async () => {
-            return loginPage.login(user);
+            return signUpLogInPage.login(user);
         });
 
         await test.step('Verify user is logged in', async () => {

@@ -1,11 +1,11 @@
-import { test } from '@fixtures/page.fixture';
+import { test } from '@fixtures/index';
 import { DataFactory } from '@utils/DataFactory';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
-import { TestData } from '@constants/TestData';
+import { ROUTES } from '@constants/Routes';
+import { TEST_DATA } from '@constants/TestData';
 
 test.describe('TC-006: Contact Us Form', () => {
-    const contactData = DataFactory.generateContactData();
+    const CONTACT_DATA = DataFactory.generateContactData();
 
     test('should successfully submit the contact us form with file attachment', async ({
         page,
@@ -13,7 +13,7 @@ test.describe('TC-006: Contact Us Form', () => {
         contactUsPage,
     }) => {
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
@@ -26,8 +26,9 @@ test.describe('TC-006: Contact Us Form', () => {
 
         await test.step('Fill in contact form and upload file attachment', async () => {
             await contactUsPage.verifyFormContentVisible();
-            await contactUsPage.fillContactForm(contactData);
-            return contactUsPage.uploadFile(TestData.FILES.CONTACT_FORM_ATTACHMENT);
+            await contactUsPage.fillContactForm(CONTACT_DATA);
+            await contactUsPage.uploadFile(TEST_DATA.FILES.CONTACT_FORM_ATTACHMENT);
+            await page.pause();
         });
 
         await test.step('Submit contact form and verify success message', async () => {

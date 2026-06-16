@@ -65,4 +65,20 @@ export class RandomDataGenerator {
     static wordsGenerator(number_of_words: number): string {
         return faker.word.words(number_of_words);
     }
+
+    static creditCardNumber(): string {
+        return faker.finance.creditCardNumber();
+    }
+
+    static creditCardCVV(): string {
+        return faker.finance.creditCardCVV();
+    }
+
+    static paddedNumber(value: number, length: number, padChar: string = '0'): string {
+        return String(value).padStart(length, padChar);
+    }
+
+    static fullName(): string {
+        return faker.person.fullName();
+    }
 }
