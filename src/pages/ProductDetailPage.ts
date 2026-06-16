@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { ViewCartModal } from '../components/ViewCartModal';
 
 export class ProductDetailPage extends BasePage {
     readonly productName: Locator;
@@ -9,10 +10,8 @@ export class ProductDetailPage extends BasePage {
     readonly productCondition: Locator;
     readonly productBrand: Locator;
     readonly quantityInput: Locator;
-    readonly viewCartModal: Locator;
+    readonly viewCartModal: ViewCartModal;
     readonly addToCartButton: Locator;
-    readonly continueShoppingButton: Locator;
-    readonly viewCartButton: Locator;
 
     constructor(page: Page) {
         super(page, page.locator('.product-information h2'));
@@ -38,16 +37,9 @@ export class ProductDetailPage extends BasePage {
             .filter({ hasText: /brand/i })
             .describe('Product brand');
         this.quantityInput = this.page.locator('#quantity').describe('Quantity input');
-        this.quantityInput = this.page.locator('#quantity').describe('Quantity input');
-        this.viewCartModal = this.page.locator('.modal-content').describe('View cart modal');
-        this.continueShoppingButton = this.viewCartModal
-            .getByRole('button', { name: /continue shopping/i })
-            .describe('Continue shopping button');
+        this.viewCartModal = new ViewCartModal(this.page);
         this.addToCartButton = this.page.locator('button.cart').describe('Add to cart button');
         this.productName = this.page.locator('.product-information h2').describe('Product name');
-        this.viewCartButton = this.viewCartModal
-            .getByRole('link', { name: /view cart/i })
-            .describe('View cart button in modal');
     }
 
     async verifyProductDetailVisible() {
@@ -84,20 +76,19 @@ export class ProductDetailPage extends BasePage {
 
     async addToCart() {
         await this.addToCartButton.click();
-        return this.viewCartModal.waitFor({ state: 'visible' });
+        return this.viewCartModal.waitForVisible();
     }
 
     async clickContinueShopping() {
-        await this.continueShoppingButton.click();
-        return this.viewCartModal.waitFor({ state: 'hidden' });
+        return this.viewCartModal.clickContinueShopping();
     }
 
     async getProductName(): Promise<string> {
         const name = await this.productName.textContent();
-        return name?.trim() || '';
+        return name?.trim() ?? '';
     }
 
     async clickViewCart() {
-        return this.viewCartButton.click();
+        return this.viewCartModal.clickViewCart();
     }
 }

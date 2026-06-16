@@ -2,6 +2,7 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { RandomNumberGenerator } from '@utils/RandomNumberGenerator';
 import { RegExpUtils } from '@utils/RegExpUtils';
+import { ViewCartModal } from '../components/ViewCartModal';
 
 interface AddToCartOptions {
     index?: number;
@@ -14,9 +15,7 @@ export class ProductsPage extends BasePage {
     readonly searchedProductsHeading: Locator;
     readonly productsList: Locator;
     readonly productItems: Locator;
-    readonly productAddedToTheCartModal: Locator;
-    readonly continueShoppingButton: Locator;
-    readonly viewCartButton: Locator;
+    readonly viewCartModal: ViewCartModal;
     readonly categorySidebar: Locator;
     readonly productsTitle: Locator;
     readonly brandsSidebar: Locator;
@@ -38,15 +37,7 @@ export class ProductsPage extends BasePage {
         this.productItems = this.productsList
             .locator('.col-sm-4')
             .describe('Individual product items');
-        this.productAddedToTheCartModal = this.page
-            .locator('.modal-content')
-            .describe('Product added to the cart modal');
-        this.continueShoppingButton = this.productAddedToTheCartModal
-            .getByRole('button', { name: /continue shopping/i })
-            .describe('Continue shopping button');
-        this.viewCartButton = this.productAddedToTheCartModal
-            .getByRole('link', { name: /view cart/i })
-            .describe('View cart button in modal');
+        this.viewCartModal = new ViewCartModal(this.page);
         this.categorySidebar = this.page
             .locator('.left-sidebar .panel-group')
             .describe('Category sidebar');
@@ -64,10 +55,7 @@ export class ProductsPage extends BasePage {
     }
 
     async clickViewProduct(index?: number) {
-        const productIndex =
-            index !== undefined
-                ? index
-                : RandomNumberGenerator.getRandomArbitrary(0, await this.getProductCount());
+        const productIndex = await this.resolveProductIndex(index);
 
         const viewProductLink = this.productItems
             .nth(productIndex)
@@ -80,10 +68,7 @@ export class ProductsPage extends BasePage {
     async addProductToCart(options: AddToCartOptions = {}) {
         const { index, productName } = options;
 
-        const productIndex =
-            index !== undefined
-                ? index
-                : RandomNumberGenerator.getRandomArbitrary(0, await this.getProductCount());
+        const productIndex = await this.resolveProductIndex(index);
 
         const product = productName
             ? this.productItems.filter({ hasText: productName })
@@ -94,20 +79,18 @@ export class ProductsPage extends BasePage {
     }
 
     async clickContinueShopping() {
-        return this.continueShoppingButton.click();
+        return this.viewCartModal.clickContinueShopping();
     }
 
     async clickViewCart() {
-        return this.viewCartButton.click();
+        return this.viewCartModal.clickViewCart();
     }
 
     async getProductName(index?: number) {
-        const count = await this.productItems.count();
-        const productIndex =
-            index !== undefined ? index : RandomNumberGenerator.getRandomArbitrary(0, count);
+        const productIndex = await this.resolveProductIndex(index);
 
         let product = this.productItems.nth(productIndex);
-        const productName = (await product.locator('.productinfo p').textContent()) || '';
+        const productName = (await product.locator('.productinfo p').textContent()) ?? '';
 
         return productName;
     }
@@ -126,9 +109,44 @@ export class ProductsPage extends BasePage {
         return subCategoryLink.click();
     }
 
+    async selectRandomBrand(excludeBrands: string[] = []): Promise<string> {
+        const brandLinks = this.brandsSidebar.locator('li a');
+        await brandLinks.first().waitFor({ state: 'visible' });
+
+        const validBrands = await brandLinks.evaluateAll((els, exclude) => {
+            return els
+                .map((el, index) => {
+                    let text = '';
+                    for (const child of el.childNodes) {
+                        if (child.nodeType === Node.TEXT_NODE) {
+                            text += child.textContent;
+                        }
+                    }
+                    return { index, name: text.trim() };
+                })
+                .filter((b) => !exclude.some((e) => e.toLowerCase() === b.name.toLowerCase()));
+        }, excludeBrands);
+
+        if (validBrands.length === 0) {
+            throw new Error('No available brands found after exclusion');
+        }
+
+        const randomIndexIdx = RandomNumberGenerator.getRandomArbitrary(0, validBrands.length);
+        const selected = validBrands[randomIndexIdx];
+
+        await brandLinks.nth(selected.index).click();
+        return selected.name;
+    }
+
     async selectBrand(brandName: string) {
         return this.brandsSidebar
             .getByRole('link', { name: RegExpUtils.caseInsensitiveRegExp(brandName) })
             .click();
+    }
+
+    private async resolveProductIndex(index?: number): Promise<number> {
+        return index !== undefined
+            ? index
+            : RandomNumberGenerator.getRandomArbitrary(0, await this.getProductCount());
     }
 }

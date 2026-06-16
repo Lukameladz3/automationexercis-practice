@@ -1,4 +1,4 @@
-export const TestData = {
+export const TEST_DATA = {
     AUTH: {
         SUCCESS_MESSAGES: {
             ACCOUNT_CREATED: 'Account Created!',
@@ -6,6 +6,11 @@ export const TestData = {
         ERROR_MESSAGES: {
             DUPLICATE_EMAIL: 'Email Address already exist!',
             INVALID_CREDENTIALS: 'Your email or password is incorrect!',
+        },
+    },
+    ORDERS: {
+        SUCCESS_MESSAGES: {
+            PLACED: 'ORDER PLACED',
         },
     },
     FILES: {

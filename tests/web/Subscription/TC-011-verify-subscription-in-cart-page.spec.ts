@@ -1,6 +1,6 @@
 import { test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 import { RandomDataGenerator } from '@utils/RandomDataGenerator';
 
 test.describe('TC-011: Verify Subscription in Cart Page', () => {
@@ -9,10 +9,10 @@ test.describe('TC-011: Verify Subscription in Cart Page', () => {
         homePage,
         cartPage,
     }) => {
-        const testEmail = RandomDataGenerator.email();
+        const TEST_EMAIL = RandomDataGenerator.email();
 
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
@@ -22,7 +22,7 @@ test.describe('TC-011: Verify Subscription in Cart Page', () => {
         });
 
         await test.step('Subscribe with email and verify success message', async () => {
-            await cartPage.subscribeWithEmail(testEmail);
+            await cartPage.subscribeWithEmail(TEST_EMAIL);
             return cartPage.verifySubscriptionSuccess();
         });
     });

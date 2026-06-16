@@ -1,11 +1,10 @@
 import { expect, test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
-import { TestData } from '@constants/TestData';
+import { ROUTES } from '@constants/Routes';
+import { TEST_DATA } from '@constants/TestData';
 
-test.describe('TC-019: View Category Products', () => {
-    const poloBrand = TestData.BRANDS.POLO.name;
-    const hAndMBrand = TestData.BRANDS.H_AND_M.name;
+test.describe('TC-019: View & Cart Brand Products', () => {
+    let randomBrand1: string;
 
     test('should navigate through different brands and view their products', async ({
         page,
@@ -13,7 +12,7 @@ test.describe('TC-019: View Category Products', () => {
         productsPage,
     }) => {
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
@@ -29,18 +28,18 @@ test.describe('TC-019: View Category Products', () => {
             ).toBeVisible();
         });
 
-        await test.step(`Click on ${poloBrand} brand and verify brand page and products`, async () => {
-            await productsPage.selectBrand(poloBrand);
+        await test.step(`Click on a random brand and verify brand page and products`, async () => {
+            randomBrand1 = await productsPage.selectRandomBrand();
 
-            await expect(productsPage.productsTitle).toContainText(poloBrand);
+            await expect(productsPage.productsTitle).toContainText(randomBrand1);
             const productCount = await productsPage.productItems.count();
             return expect(productCount, 'Should have products displayed').toBeGreaterThan(0);
         });
 
-        await test.step(`Click on ${hAndMBrand} brand and verify brand page and products`, async () => {
-            await productsPage.selectBrand(hAndMBrand);
+        await test.step(`Click on another random brand and verify brand page and products`, async () => {
+            const randomBrand2 = await productsPage.selectRandomBrand([randomBrand1]);
 
-            await expect(productsPage.productsTitle).toContainText(hAndMBrand);
+            await expect(productsPage.productsTitle).toContainText(randomBrand2);
             const productCount = await productsPage.productItems.count();
             return expect(productCount, 'Should have products displayed').toBeGreaterThan(0);
         });

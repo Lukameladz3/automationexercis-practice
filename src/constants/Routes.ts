@@ -1,4 +1,4 @@
-export const Routes = {
+export const ROUTES = {
     WEB: {
         HOME: '/',
         VIEW_CART: '/view_cart',

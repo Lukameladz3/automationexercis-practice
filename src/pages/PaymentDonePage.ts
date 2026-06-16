@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { TEST_DATA } from '@constants/TestData';
 
 export class PaymentDonePage extends BasePage {
     readonly successMessage: Locator;
@@ -18,7 +19,7 @@ export class PaymentDonePage extends BasePage {
         const messageText = await this.successMessage.textContent();
         return expect(
             messageText?.trim().toUpperCase(),
-            "Success message should contain 'ORDER PLACED'",
-        ).toContain('ORDER PLACED');
+            `Success message should contain '${TEST_DATA.ORDERS.SUCCESS_MESSAGES.PLACED}'`,
+        ).toContain(TEST_DATA.ORDERS.SUCCESS_MESSAGES.PLACED);
     }
 }

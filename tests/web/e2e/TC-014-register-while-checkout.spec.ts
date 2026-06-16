@@ -1,13 +1,13 @@
 import { expect, test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 import { DataFactory } from '@utils/DataFactory';
 import { User } from '@models/UserModels';
 import { PaymentDetails } from '@models/PaymentModels';
 
 test.describe('TC-014: Place Order: Register During Checkout', () => {
-    const user: User = DataFactory.generateUser();
-    const paymentData: PaymentDetails = DataFactory.generatePaymentDetails();
+    const USER: User = DataFactory.generateUser();
+    const PAYMENT_DATA: PaymentDetails = DataFactory.generatePaymentDetails();
 
     test('should allow a guest user to register during checkout and complete an order', async ({
         page,
@@ -25,7 +25,7 @@ test.describe('TC-014: Place Order: Register During Checkout', () => {
         accountDeletedPage,
     }) => {
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
@@ -45,8 +45,8 @@ test.describe('TC-014: Place Order: Register During Checkout', () => {
         });
 
         await test.step('Fill in signup details and create the account', async () => {
-            await signUpLogInPage.signup(user);
-            await signupPage.fillAccountDetails(user);
+            await signUpLogInPage.signup(USER);
+            await signupPage.fillAccountDetails(USER);
             return signupPage.clickCreateAccount();
         });
 
@@ -59,8 +59,8 @@ test.describe('TC-014: Place Order: Register During Checkout', () => {
         });
 
         await test.step('Verify Address Details and Review Your Order', async () => {
-            await checkoutSteps.verifyDeliveryAddress(user);
-            return checkoutSteps.verifyBillingAddress(user);
+            await checkoutSteps.verifyDeliveryAddress(USER);
+            return checkoutSteps.verifyBillingAddress(USER);
         });
 
         await test.step('Leave a comment and place the order', async () => {
@@ -71,7 +71,7 @@ test.describe('TC-014: Place Order: Register During Checkout', () => {
 
         await test.step('Fill in payment details and confirm the order', async () => {
             await paymentPage.verifyPaymentPageVisible();
-            await paymentPage.fillPaymentDetails(paymentData);
+            await paymentPage.fillPaymentDetails(PAYMENT_DATA);
             return paymentPage.clickPayAndConfirm();
         });
 

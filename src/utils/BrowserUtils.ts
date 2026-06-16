@@ -16,34 +16,4 @@ export class BrowserUtils {
         return expect(locator, message ?? defaultMessage).toBeVisible();
     }
 
-    static dismissAds(page: Page): void {
-        page.context().on('page', async (popup) => {
-            await popup.close();
-        });
-
-        const removeAdOverlay = async () => {
-            await page
-                .evaluate(() => {
-                    const adIframe = document.querySelector<HTMLElement>(
-                        'iframe[id^="aswift"], iframe[id^="google_ads"], div#ad_position_box',
-                    );
-                    if (adIframe) adIframe.remove();
-                })
-                .catch(() => {});
-        };
-
-        page.on('load', removeAdOverlay);
-        page.on('domcontentloaded', removeAdOverlay);
-
-        const adModalInterval = setInterval(async () => {
-            try {
-                const closeButton = page.getByText('Close', { exact: true });
-                if (await closeButton.isVisible({ timeout: 0 })) {
-                    await closeButton.click({ timeout: 0 });
-                }
-            } catch {}
-        }, 500);
-
-        page.on('close', () => clearInterval(adModalInterval));
-    }
 }

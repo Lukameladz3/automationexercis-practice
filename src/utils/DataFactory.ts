@@ -54,11 +54,12 @@ export class DataFactory {
     }
 
     static generatePaymentDetails(): PaymentDetails {
+        const currentYear = new Date().getFullYear();
         return {
             cardNumber: RandomDataGenerator.creditCardNumber(),
             cvc: RandomDataGenerator.creditCardCVV(),
             expiryMonth: RandomDataGenerator.paddedNumber(RandomDataGenerator.integer(1, 12), 2),
-            expiryYear: String(RandomDataGenerator.integer(2025, 2030)),
+            expiryYear: String(RandomDataGenerator.integer(currentYear + 1, currentYear + 5)),
             nameOnCard: RandomDataGenerator.fullName(),
         };
     }

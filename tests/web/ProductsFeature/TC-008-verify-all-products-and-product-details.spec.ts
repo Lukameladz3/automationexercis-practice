@@ -1,6 +1,6 @@
 import { expect, test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 
 test.describe('TC-008: Verify All Products and Product Detail Page', () => {
     test('should display all products and show correct product detail information', async ({
@@ -10,7 +10,7 @@ test.describe('TC-008: Verify All Products and Product Detail Page', () => {
         productDetailPage,
     }) => {
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 

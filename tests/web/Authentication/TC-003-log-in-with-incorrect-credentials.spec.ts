@@ -1,7 +1,7 @@
 import { expect, test } from '@fixtures/index';
 import { DataFactory } from '@utils/DataFactory';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 
 test.describe('TC-AUTH-003: Login User with incorrect email and password', () => {
     test('should show error message when logging in with invalid credentials', async ({
@@ -12,7 +12,7 @@ test.describe('TC-AUTH-003: Login User with incorrect email and password', () =>
         const user = DataFactory.generateUser();
 
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 

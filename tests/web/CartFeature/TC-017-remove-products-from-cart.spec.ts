@@ -1,13 +1,13 @@
 import { expect, test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 
 test.describe('TC-017: Remove Products From Cart', () => {
     let productName: string;
 
     test('should remove product from cart', async ({ page, homePage, cartPage, productsPage }) => {
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 

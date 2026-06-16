@@ -1,6 +1,6 @@
 import { expect, test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 
 test.describe('TC-012: Add Products in Cart', () => {
     test('should add two products to cart and verify their details', async ({
@@ -10,16 +10,16 @@ test.describe('TC-012: Add Products in Cart', () => {
         productsPage,
     }) => {
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
         await test.step('Add two products to cart one by one, then open the cart', async () => {
             await homePage.navigationMenu.clickProducts();
             await productsPage.verifyPageOpened();
-            await productsPage.addProductToCart(0);
+            await productsPage.addProductToCart({ index: 0 });
             await productsPage.clickContinueShopping();
-            await productsPage.addProductToCart(1);
+            await productsPage.addProductToCart({ index: 1 });
             return productsPage.clickViewCart();
         });
 

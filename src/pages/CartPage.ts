@@ -88,10 +88,10 @@ export class CartPage extends BasePage {
             const total = await row.locator('.cart_total_price').textContent();
 
             items.push({
-                name: name?.trim() || '',
-                price: price?.trim() || '',
-                quantity: quantity?.trim() || '',
-                total: total?.trim() || '',
+                name: name?.trim() ?? '',
+                price: price?.trim() ?? '',
+                quantity: quantity?.trim() ?? '',
+                total: total?.trim() ?? '',
             });
         }
 
@@ -102,7 +102,7 @@ export class CartPage extends BasePage {
         const row = this.cartRowByProductName(productName);
 
         const quantityText = await row.locator('.cart_quantity button').textContent();
-        return parseInt(quantityText?.trim() || '0', 10);
+        return parseInt(quantityText?.trim() ?? '0', 10);
     }
 
     async clickProceedToCheckout() {

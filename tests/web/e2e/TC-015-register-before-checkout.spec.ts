@@ -1,14 +1,14 @@
 import { expect, test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 import { DataFactory } from '@utils/DataFactory';
 import { User } from '@models/UserModels';
 import { PaymentDetails } from '@models/PaymentModels';
-import { TestData } from '@constants/TestData';
+import { TEST_DATA } from '@constants/TestData';
 
 test.describe('TC-015: Place Order: Register Before Checkout', () => {
     let user: User;
-    const paymentData: PaymentDetails = DataFactory.generatePaymentDetails();
+    const PAYMENT_DATA: PaymentDetails = DataFactory.generatePaymentDetails();
 
     test('should allow a pre-registered user to complete an order', async ({
         page,
@@ -28,7 +28,7 @@ test.describe('TC-015: Place Order: Register Before Checkout', () => {
         user = DataFactory.generateUser();
 
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
@@ -54,7 +54,7 @@ test.describe('TC-015: Place Order: Register Before Checkout', () => {
             await expect(
                 accountCreatedPage.successMessage,
                 'ACCOUNT CREATED! message should be displayed',
-            ).toHaveText(TestData.AUTH.SUCCESS_MESSAGES.ACCOUNT_CREATED);
+            ).toHaveText(TEST_DATA.AUTH.SUCCESS_MESSAGES.ACCOUNT_CREATED);
             await accountCreatedPage.clickContinue();
             await homePage.verifyPageOpened();
             await expect(homePage.loggedInText, 'Logged in status should be visible').toBeVisible();
@@ -88,7 +88,7 @@ test.describe('TC-015: Place Order: Register Before Checkout', () => {
 
         await test.step('Fill in payment details and confirm the order', async () => {
             await paymentPage.verifyPaymentPageVisible();
-            await paymentPage.fillPaymentDetails(paymentData);
+            await paymentPage.fillPaymentDetails(PAYMENT_DATA);
             return paymentPage.clickPayAndConfirm();
         });
 

@@ -36,17 +36,17 @@ export class CheckoutPage extends BasePage {
 
     async getDeliveryAddressText(): Promise<string> {
         const text = await this.deliveryAddressSection.textContent();
-        return text?.trim() || '';
+        return text?.trim() ?? '';
     }
 
     async getBillingAddressText(): Promise<string> {
         const text = await this.billingAddressSection.textContent();
-        return text?.trim() || '';
+        return text?.trim() ?? '';
     }
 
     async getOrderItemDescriptions(): Promise<string> {
         const text = await this.orderItemName.textContent();
-        return text?.trim() || '';
+        return text?.trim() ?? '';
     }
 
     async enterComment(comment: string) {

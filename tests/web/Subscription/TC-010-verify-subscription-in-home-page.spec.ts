@@ -1,6 +1,6 @@
 import { test } from '@fixtures/index';
 import { BrowserUtils } from '@utils/BrowserUtils';
-import { Routes } from '@constants/Routes';
+import { ROUTES } from '@constants/Routes';
 
 test.describe('TC-010: Verify Subscription in Home Page', () => {
     test('should display subscription section and accept email subscription in home page', async ({
@@ -8,7 +8,7 @@ test.describe('TC-010: Verify Subscription in Home Page', () => {
         homePage,
     }) => {
         await test.step('Navigate to homepage', async () => {
-            await BrowserUtils.goto(page, Routes.WEB.HOME);
+            await BrowserUtils.goto(page, ROUTES.WEB.HOME);
             return homePage.verifyPageOpened();
         });
 
